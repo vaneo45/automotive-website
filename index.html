@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoMotor - Dashboard Sistem Sepeda Motor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #ffffff;
+            --secondary: #ffffff;
+            --accent: #ff914d;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            color: var(--dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: var(--primary);
+            color: rgb(0, 0, 0);
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-img {
+            width: 120px;
+            height: 100px;
+            object-fit: contain;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: #ff0000;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        nav a:hover, nav a.active {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8)), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: rgb(0, 0, 0);
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 35px;
+            opacity: 0.95;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #ff0000; 
+            color: rgb(0, 0, 0);
+            padding: 14px 35px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ff7a2d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background-color: rgb(255, 255, 255);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: #000000;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -15px;
+            left: 15%;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #000000; 
+        }
+        
+        .about-features {
+            list-style: none;
+        }
+        
+        .about-features li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .about-features li i {
+            color: var(--secondary);
+            font-size: 1.3rem;
+        }
+        
+        .about-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Systems Grid Section */
+        .systems-section {
+            padding: 100px 0;
+            background-color: #ffffff;
+        }
+        
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .system-card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            cursor: pointer;
+        }
+        
+        .system-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .system-card-header {
+            background-color: var(--primary);
+            color: rgb(0, 0, 0);
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .system-card-header i {
+            font-size: 2.5rem;
+            color: rgb(0, 0, 0);
+        }
+        
+        .system-card-header h3 {
+            font-size: 1.6rem;
+        }
+        
+        .system-card-content {
+            padding: 25px;
+        }
+        
+        .system-card-content p {
+            color: rgb(0, 0, 0);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .system-features {
+            list-style: none;
+        }
+        
+        .system-features li {
+            padding: 10px 0;
+            border-bottom: 1px dashed #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .system-features li i {
+            color: var(--secondary);
+        }
+        
+        /* Detail Section */
+        .detail-section {
+            padding: 100px 0;
+            background-color: rgb(255, 255, 255);
+            display: none;
+        }
+        
+        .detail-section.active {
+            display: block;
+        }
+        
+        .detail-header {
+            background: linear-gradient(135deg, var(--primary), #ffffff);
+            color: rgb(0, 0, 0);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .detail-icon {
+            font-size: 4rem;
+            color: var(--accent);
+        }
+        
+        .detail-title h2 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .detail-title p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 50px;
+        }
+        
+        .detail-info {
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-block {
+            margin-bottom: 40px;
+        }
+        
+        .info-block h3 {
+            font-size: 1.8rem;
+            color: rgb(0, 0, 0);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+        }
+        
+        .info-block p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .info-block ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .info-block ul li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            line-height: 1.6;
+        }
+        
+        .detail-images {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .image-card {
+            background-color: rgb(0, 0, 0);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .image-card-caption {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .image-card-caption h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+        }
+        
+        .image-card-caption p {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 14px 35px;
+            background-color: #ffffff;
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .back-btn:hover {
+            background-color: #15526b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            padding: 80px 0 40px;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.6rem;
+            margin-bottom: 30px;
+            color: rgb(255, 0, 0);
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-column ul li a {
+            color: #000000;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--accent);
+            padding-left: 10px;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: rgb(0, 0, 0);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 1rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .systems-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-images {
+                order: -1;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .logo-img {
+                width: 40px;
+                height: 32px;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .systems-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .detail-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="#home">
+                        <img src="logo.png" alt="AutoMotor Logo" class="logo-img">
+                        <h1>Auto<span>Motor</span> Systems</h1>
+                    </a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="active">Beranda</a></li>
+                        <li><a href="#about">Tentang</a></li>
+                        <li><a href="#systems">Sistem Motor</a></li>
+                        <li><a href="#contact">Kontak</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Panduan Lengkap Sistem Sepeda Motor</h1>
+                    <p>Website edukasi otomotif yang menyediakan informasi detail tentang 8 sistem utama sepeda motor. Didesain untuk mekanik, teknisi, dan pecinta otomotif yang ingin memahami cara kerja, perawatan, dan perbaikan sepeda motor secara komprehensif.</p>
+                    <a href="#systems" class="btn">Jelajahi Sistem Motor</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section" id="about">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Fungsi & Tujuan Website</h2>
+                </div>
+                
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>AutoMotor Systems dibuat dengan tujuan menjadi sumber referensi terpercaya tentang sistem sepeda motor. Website ini menyajikan informasi yang akurat, terstruktur, dan mudah dipahami bagi semua kalangan.</p>
+                        <p>Dengan perkembangan teknologi otomotif yang pesat, pemahaman tentang sistem sepeda motor menjadi semakin penting baik untuk perawatan sehari-hari maupun perbaikan profesional.</p>
+                        
+                        <ul class="about-features">
+                            <li><i class="fas fa-check-circle"></i> <strong>Edukasi Otomotif:</strong> Memberikan pemahaman mendalam tentang sistem sepeda motor</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Panduan Perawatan:</strong> Menyediakan informasi perawatan berkala untuk setiap sistem</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Troubleshooting:</strong> Membantu identifikasi dan solusi masalah umum</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Visual Learning:</strong> Menyertakan gambar dan diagram untuk mempermudah pemahaman</li>
+                            <li><i class="fas fa-check-circle"></i> <strong>Update Teknologi:</strong> Selalu diperbarui dengan teknologi terbaru di industri otomotif</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Mekanik Motor">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="systems-section" id="systems">
+            <div class="container">
+                <div class="section-title">
+                    <h2>8 Sistem Utama Sepeda Motor</h2>
+                    <p>Klik pada salah satu sistem di bawah untuk melihat penjelasan lengkap, komponen, dan perawatannya.</p>
+                </div>
+                
+                <div class="systems-grid">
+                    <!-- Sistem 1 -->
+                    <div class="system-card" data-system="bahan-bakar">
+                        <div class="system-card-header">
+                            <i class="fas fa-gas-pump"></i>
+                            <h3>Sistem Bahan Bakar Motor</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang bertanggung jawab untuk menyuplai campuran bahan bakar dan udara ke dalam mesin dengan perbandingan yang tepat.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Tangki Bahan Bakar</li>
+                                <li><i class="fas fa-check"></i> Karburator/Injektor</li>
+                                <li><i class="fas fa-check"></i> Filter Udara & Bahan Bakar</li>
+                                <li><i class="fas fa-check"></i> Pompa Bahan Bakar</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 2 -->
+                    <div class="system-card" data-system="kemudi">
+                        <div class="system-card-header">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Sistem Kemudi, Rangka & Ban</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang memberikan kendali, stabilitas, dan penyerapan guncangan saat berkendara.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Rangka Motor</li>
+                                <li><i class="fas fa-check"></i> Setang & Batang Kemudi</li>
+                                <li><i class="fas fa-check"></i> Ban & Roda</li>
+                                <li><i class="fas fa-check"></i> Bearing Roda</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 3 -->
+                    <div class="system-card" data-system="overhaul">
+                        <div class="system-card-header">
+                            <i class="fas fa-tools"></i>
+                            <h3>Sistem Overhaul Mesin & Perawatan Berkala</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Prosedur perawatan komprehensif untuk menjaga kinerja dan umur panjang mesin.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Overhaul Mesin</li>
+                                <li><i class="fas fa-check"></i> Perawatan Berkala</li>
+                                <li><i class="fas fa-check"></i> Servis Rutin</li>
+                                <li><i class="fas fa-check"></i> Tune-up Mesin</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 4 -->
+                    <div class="system-card" data-system="pelumasan">
+                        <div class="system-card-header">
+                            <i class="fas fa-oil-can"></i>
+                            <h3>Sistem Pelumasan & Pendinginan</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang mencegah keausan komponen dan mengatur suhu mesin agar tetap optimal.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Oli Mesin</li>
+                                <li><i class="fas fa-check"></i> Radiator & Pendingin</li>
+                                <li><i class="fas fa-check"></i> Sirkulasi Pelumas</li>
+                                <li><i class="fas fa-check"></i> Oil Pump</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 5 -->
+                    <div class="system-card" data-system="pengapian">
+                        <div class="system-card-header">
+                            <i class="fas fa-bolt"></i>
+                            <h3>Sistem Pengapian & Kelistrikan</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang menghasilkan percikan api dan menyediakan daya listrik untuk komponen motor.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Busi & Koil Pengapian</li>
+                                <li><i class="fas fa-check"></i> Aki & Alternator</li>
+                                <li><i class="fas fa-check"></i> Sistem Penerangan</li>
+                                <li><i class="fas fa-check"></i> CDI & Regulator</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 6 -->
+                    <div class="system-card" data-system="rem">
+                        <div class="system-card-header">
+                            <i class="fas fa-car-crash"></i>
+                            <h3>Sistem Rem & Suspensi</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang mengendalikan kecepatan dan menyerap guncangan untuk kenyamanan berkendara.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Rem Cakram/Tromol</li>
+                                <li><i class="fas fa-check"></i> Suspensi Depan/Belakang</li>
+                                <li><i class="fas fa-check"></i> Kaliper & Master Rem</li>
+                                <li><i class="fas fa-check"></i> Shockbreaker</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 7 -->
+                    <div class="system-card" data-system="transmisi">
+                        <div class="system-card-header">
+                            <i class="fas fa-cogs"></i>
+                            <h3>Sistem Transmisi</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem yang mentransfer tenaga dari mesin ke roda dengan pengaturan kecepatan yang tepat.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Kopling</li>
+                                <li><i class="fas fa-check"></i> Gearbox & Rantai</li>
+                                <li><i class="fas fa-check"></i> Sistem Penggerak</li>
+                                <li><i class="fas fa-check"></i> Sprocket</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Sistem 8 -->
+                    <div class="system-card" data-system="starter">
+                        <div class="system-card-header">
+                            <i class="fas fa-car-battery"></i>
+                            <h3>Sistem Starter & Pengisian</h3>
+                        </div>
+                        <div class="system-card-content">
+                            <p>Sistem penggerak awal mesin dan penyedia listrik untuk seluruh komponen.</p>
+                            <ul class="system-features">
+                                <li><i class="fas fa-check"></i> Motor Starter</li>
+                                <li><i class="fas fa-check"></i> Alternator</li>
+                                <li><i class="fas fa-check"></i> Baterai (Aki)</li>
+                                <li><i class="fas fa-check"></i> Regulator</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="detail-section" id="detail-section">
+            <div class="container">
+                <!-- Detail akan dimuat secara dinamis -->
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AutoMotor Systems</h3>
+                    <p>Sumber informasi terlengkap tentang sistem sepeda motor untuk mekanik, teknisi, dan pecinta otomotif.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Link Cepat</h3>
+                    <ul>
+                        <li><a href="#home">Beranda</a></li>
+                        <li><a href="#about">Tentang Website</a></li>
+                        <li><a href="#systems">Semua Sistem</a></li>
+                        <li><a href="#contact">Kontak Kami</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Kontak Kami</h3>
+                    <p><i class="fas fa-phone"></i> Pace Jo</p>
+                    <p><i class="fas fa-phone"></i> Cipung</p>
+                    <p><i class="fas fa-phone"></i> Anang 2 stroke</p>
+                    <p><i class="fas fa-phone"></i> parhan velg</p>
+                    <p><i class="fas fa-phone"></i> Ilham Kopling</p>
+                    <p><i class="fas fa-phone"></i> Aldo Jetbus 3+</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AutoMotor Systems. Semua hak dilindungi.</p>
+                <p>Dibuat oleh kelompok 2</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data untuk semua sistem motor dengan struktur yang sama
+        const systemsData = {
+            'bahan-bakar': {
+                title: 'Sistem Bahan Bakar Motor',
+                subtitle: 'Sistem Penyediaan Campuran Bahan Bakar & Udara',
+                description: 'Sistem bahan bakar pada sepeda motor bertanggung jawab untuk menyuplai campuran bahan bakar dan udara ke dalam ruang bakar mesin dengan perbandingan yang tepat untuk proses pembakaran yang optimal. Sistem ini berfungsi untuk menyimpan bahan bakar secara aman, menyalurkannya ke mesin, dan mengkabutkannya agar bercampur sempurna dengan udara.',
+                icon: 'fas fa-gas-pump',
+                components: [
+                    'Tangki Bahan Bakar: Tempat penyimpanan bahan bakar dengan kapasitas sesuai model motor',
+                    'Karburator/Injektor: Alat untuk mencampur bahan bakar dengan udara dalam perbandingan yang tepat',
+                    'Filter Bahan Bakar: Menyaring kotoran dan partikel dalam bahan bakar sebelum masuk ke sistem',
+                    'Pompa Bahan Bakar: Memompa bahan bakar dari tangki ke karburator/injektor',
+                    'Filter Udara: Menyaring kotoran dari udara sebelum dicampur dengan bahan bakar',
+                    'Throttle Body: Mengatur jumlah campuran bahan bakar-udara yang masuk ke mesin'
+                ],
+                working: 'Pada sistem karburator, bahan bakar mengalir secara gravitasi dari tangki ke karburator. Di dalam karburator, bahan bakar dicampur dengan udara yang disaring oleh filter udara menggunakan prinsip Venturi. Campuran ini kemudian dialirkan ke ruang bakar melalui intake manifold.<br><br>Pada sistem injeksi (EFI), pompa bahan bakar menekan bahan bakar dari tangki ke fuel rail dengan tekanan tertentu. ECU (Engine Control Unit) mengatur waktu dan jumlah injeksi bahan bakar berdasarkan data dari berbagai sensor seperti MAF/MAP, TPS, dan sensor suhu untuk mencapai rasio udara-bahan bakar yang optimal.',
+                maintenance: [
+                    'Ganti filter udara setiap 5.000 - 10.000 km tergantung kondisi lingkungan',
+                    'Bersihkan karburator setiap 10.000 km atau saat performa mesin menurun',
+                    'Ganti filter bahan bakar setiap 15.000 - 20.000 km',
+                    'Untuk sistem injeksi, lakukan cleaning injektor setiap 20.000 km',
+                    'Gunakan bahan bakar berkualitas sesuai rekomendasi pabrikan',
+                    'Periksa kebocoran pada saluran bahan bakar secara rutin',
+                    'Untuk sistem EFI: periksa konektor sensor dan baca error code secara berkala'
+                ],
+                problems: [
+                    'Motor Susah Hidup: Bisa disebabkan oleh karburator kotor, filter udara tersumbat, bahan bakar basi, atau sensor rusak (EFI)',
+                    'Tenaga Kurang: Sering disebabkan oleh penyetelan karburator yang tidak tepat, filter udara kotor, atau masalah sensor MAP/MAF',
+                    'Boros Bahan Bakar: Dapat terjadi karena kebocoran, penyetelan karburator terlalu kaya, atau injektor bocor',
+                    'Mesin Ngelitik: Biasanya disebabkan oleh bahan bakar oktan rendah, timing pengapian terlalu maju, atau knocking sensor rusak',
+                    'Idle Tidak Stabil: Pada karburator karena jet idle tersumbat, pada EFI karena IAC valve kotor atau TPS rusak'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1620137671986-4271e8b8d4c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Diagram Sistem Bahan Bakar',
+                        desc: 'Aliran bahan bakar dari tangki ke ruang bakar'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Karburator Motor',
+                        desc: 'Komponen utama pada sistem bahan bakar konvensional'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1621996659490-3275c05a65e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Filter Udara Motor',
+                        desc: 'Penyaring udara sebelum masuk ke sistem bahan bakar'
+                    }
+                ]
+            },
+            'kemudi': {
+                title: 'Sistem Kemudi, Rangka & Ban',
+                subtitle: 'Sistem Kendali dan Stabilitas Motor',
+                description: 'Sistem kemudi, rangka, dan ban merupakan komponen vital yang menentukan kendali, stabilitas, dan kenyamanan berkendara. Ketiga sistem ini membentuk fondasi trinitas yang menentukan handling dan stability sebuah sepeda motor.',
+                icon: 'fas fa-cogs',
+                components: [
+                    'Rangka (Frame): Struktur utama yang menopang semua komponen motor',
+                    'Setang Kemudi (Handlebar): Pengendali arah dan posisi berkendara',
+                    'Batang Kemudi (Steering Stem): Menghubungkan setang dengan garpu depan',
+                    'Roda & Ban: Komponen yang bersentuhan langsung dengan jalan',
+                    'Bearing Roda & Kemudi: Meminimalkan gesekan pada perputaran roda dan kemudi',
+                    'Fork Depan: Suspensi depan yang menyerap guncangan'
+                ],
+                working: 'Sistem kemudi bekerja dengan mengubah input dari setang menjadi perubahan arah roda depan. Rangka berfungsi sebagai struktur utama yang menopang seluruh komponen sepeda motor dan menjaga integritas struktural. Ban berfungsi sebagai titik kontak dengan jalan, memberikan traksi, menyerap guncangan kecil, dan mengarahkan kendaraan.',
+                maintenance: [
+                    'Periksa tekanan ban secara rutin (minimal seminggu sekali)',
+                    'Periksa kondisi tapak ban dan ganti jika sudah aus',
+                    'Bersihkan dan lumasi bearing roda setiap 10.000 km',
+                    'Periksa kekencangan baut rangka dan sistem kemudi',
+                    'Setel kesejajaran roda (spooring) jika motor cenderung menarik ke satu sisi',
+                    'Periksa kondisi fork depan dan ganti oli fork jika diperlukan'
+                ],
+                problems: [
+                    'Motor Tidak Stabil: Dapat disebabkan oleh ban kurang angin, bearing roda rusak, atau rangka bengkok',
+                    'Setang Berat: Biasanya karena bearing kemudi kering atau rusak',
+                    'Ban Cepat Aus: Disebabkan oleh tekanan angin tidak tepat, kesejajaran roda salah, atau suspensi bermasalah',
+                    'Bunyi dari Roda: Sering disebabkan oleh bearing roda rusak atau kampas rem menyentuh cakram',
+                    'Rangka Retak: Dapat terjadi akibat kecelakaan atau beban berlebih'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Rangka Motor',
+                        desc: 'Struktur utama penopang seluruh komponen sepeda motor'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Sistem Kemudi Motor',
+                        desc: 'Setang dan batang kemudi untuk pengendalian arah'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1601758064238-4af5f5d43b6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Ban Motor',
+                        desc: 'Komponen yang bersentuhan langsung dengan permukaan jalan'
+                    }
+                ]
+            },
+            'overhaul': {
+                title: 'Sistem Overhaul Mesin & Perawatan Berkala',
+                subtitle: 'Pemeliharaan Komprehensif Mesin Motor',
+                description: 'Overhaul Mesin adalah proses perbaikan menyeluruh dengan membongkar seluruh/sebagian besar komponen mesin untuk diperiksa, diperbaiki, diganti, dan dipasang kembali sesuai spesifikasi pabrik. Perawatan Berkala adalah aktivitas inspeksi, perawatan, dan penggantian komponen yang dilakukan rutin pada interval waktu/jarak tempuh tertentu.',
+                icon: 'fas fa-tools',
+                components: [
+                    'Blok Mesin (Cylinder Block): Struktur utama tempat piston bergerak',
+                    'Piston & Ring Piston: Menghasilkan tenaga dari pembakaran',
+                    'Crankshaft: Mengubah gerakan naik-turun piston menjadi gerak putar',
+                    'Cylinder Head: Tempat katup dan busi berada',
+                    'Timing Chain/Belt: Mengatur waktu buka-tutup katup',
+                    'Gasket & Seal: Mencegah kebocoran oli dan bahan bakar'
+                ],
+                working: 'Proses overhaul dimulai dengan pembongkaran mesin secara sistematis. Setiap komponen dibersihkan, diinspeksi, dan diukur untuk menentukan kondisi aktual. Bagian yang aus atau rusak diperbaiki atau diganti. Setelah itu, komponen dirakit kembali dengan spesifikasi torque dan clearance yang tepat. Perawatan berkala dilakukan secara rutin berdasarkan jadwal kilometer untuk mencegah kerusakan besar.',
+                maintenance: [
+                    'Ganti oli mesin setiap 2.000-3.000 km',
+                    'Periksa dan setel celah katup setiap 8.000-12.000 km',
+                    'Ganti timing chain/belt sesuai rekomendasi pabrikan',
+                    'Bersihkan filter udara setiap 4.000 km',
+                    'Periksa kompresi mesin setiap 10.000 km',
+                    'Ganti busi setiap 10.000-15.000 km',
+                    'Periksa kondisi gasket dan seal secara berkala'
+                ],
+                problems: [
+                    'Mesin Overheat: Dapat disebabkan oleh sirkulasi oli buruk, radiator tersumbat, atau water pump rusak',
+                    'Tenaga Berkurang: Biasanya karena kompresi rendah, timing tidak tepat, atau filter udara kotor',
+                    'Konsumsi Oli Berlebih: Indikasi ring piston aus atau seal bocor',
+                    'Suara Mesin Kasar: Sering disebabkan oleh bearing crankshaft aus atau timing chain longgar',
+                    'Mesin Susah Start: Bisa disebabkan oleh kompresi rendah atau timing tidak tepat'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1567767292273-0f328ffa2d47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Overhaul Mesin Motor',
+                        desc: 'Proses pembongkaran dan perakitan mesin secara menyeluruh'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Piston & Ring Piston',
+                        desc: 'Komponen penting dalam ruang bakar untuk kompresi'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1621996659490-3275c05a65e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Cylinder Head',
+                        desc: 'Tempat katup dan mekanisme pengapian'
+                    }
+                ]
+            },
+            'pelumasan': {
+                title: 'Sistem Pelumasan & Pendinginan',
+                subtitle: 'Sistem Perlindungan dari Keausan & Overheat',
+                description: 'Sistem pelumasan bertugas mengurangi gesekan antar komponen mesin yang bergerak dengan membentuk lapisan oli, sementara sistem pendinginan menjaga suhu mesin tetap optimal untuk mencegah overheating dan kerusakan komponen akibat suhu tinggi.',
+                icon: 'fas fa-oil-can',
+                components: [
+                    'Bak Oli (Oil Pan): Tempat penampungan utama oli pelumas',
+                    'Pompa Oli (Oil Pump): Mengalirkan oli dari bak oli ke seluruh bagian mesin',
+                    'Filter Oli (Oil Filter): Menyaring kotoran, partikel logam, dan sisa karbon',
+                    'Pendingin Oli (Oil Cooler): Menurunkan suhu oli agar viskositas tetap stabil',
+                    'Radiator: Media utama pelepas panas melalui pertukaran panas dengan udara',
+                    'Pompa Air (Water Pump): Menggerakkan sirkulasi coolant dari mesin ke radiator'
+                ],
+                working: 'Sistem pelumasan bekerja dengan memompa oli dari bak oli melalui filter ke seluruh bagian mesin yang bergerak. Oli membentuk lapisan pelindung antara komponen yang bergerak, mengurangi gesekan dan keausan. Sistem pendinginan bekerja dengan mensirkulasikan cairan pendingin melalui water jacket di sekitar silinder. Cairan panas dialirkan ke radiator di mana panas dilepaskan ke udara.',
+                maintenance: [
+                    'Ganti oli mesin setiap 2.000-3.000 km',
+                    'Ganti filter oli setiap 2 kali penggantian oli',
+                    'Periksa level oli setiap minggu',
+                    'Ganti cairan pendingin setiap 20.000 km atau 2 tahun',
+                    'Bersihkan sirip radiator dari debu dan kotoran',
+                    'Periksa kebocoran pada sistem oli dan pendingin'
+                ],
+                problems: [
+                    'Lampu Oli Menyala: Dapat disebabkan oleh tekanan oli rendah atau pompa oli rusak',
+                    'Mesin Overheat: Biasanya karena cairan pendingin kurang, termostat macet, atau radiator tersumbat',
+                    'Oli Cepat Habis: Indikasi kebocoran seal/gasket atau ring piston aus',
+                    'Warna Oli Tidak Normal: Abu-abu menunjukkan campuran air, hitam pekat berarti oli sangat kotor',
+                    'Coolant Cepat Habis: Sering disebabkan oleh kebocoran selang/radiator atau gasket bocor'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1566054647296-c6e1559079b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Sistem Pelumasan',
+                        desc: 'Aliran oli ke seluruh bagian mesin untuk mengurangi gesekan'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Radiator Motor',
+                        desc: 'Komponen pendingin utama mesin'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1621996659490-3275c05a65e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Oil Filter',
+                        desc: 'Penyaring kotoran dalam oli mesin'
+                    }
+                ]
+            },
+            'pengapian': {
+                title: 'Sistem Pengapian & Kelistrikan',
+                subtitle: 'Sistem Pembakaran & Pasokan Listrik',
+                description: 'Sistem pengapian berperan penting dalam menghasilkan percikan api pada busi untuk membakar campuran udara dan bahan bakar di ruang bakar. Sistem kelistrikan berfungsi sebagai penyedia, penyimpan, dan pendistribusi energi listrik untuk menghidupkan mesin, menyalakan lampu, klakson, indikator, serta mendukung komponen elektronik lainnya.',
+                icon: 'fas fa-bolt',
+                components: [
+                    'Busi (Spark Plug): Menghasilkan percikan api di ruang bakar',
+                    'Koil Pengapian (Ignition Coil): Menaikkan tegangan dari 12V menjadi ribuan volt',
+                    'CDI (Capacitor Discharge Ignition): Mengatur waktu pengapian berdasarkan input sensor',
+                    'Aki (Baterai): Menyimpan dan menyuplai listrik saat mesin mati',
+                    'Alternator/Spul: Menghasilkan listrik saat mesin hidup',
+                    'Regulator/Rectifier: Mengubah AC ke DC dan menstabilkan tegangan'
+                ],
+                working: 'Sistem pengapian bekerja dengan mengubah tegangan rendah dari aki (12V) menjadi tegangan tinggi (15.000-30.000V) melalui koil pengapian. CDI mengatur waktu yang tepat untuk memberikan percikan api melalui busi berdasarkan input dari sensor pulser. Sistem kelistrikan menggunakan alternator untuk menghasilkan listrik saat mesin hidup, yang kemudian diubah dan distabilkan oleh regulator/rectifier, disimpan di aki, dan didistribusikan ke seluruh komponen elektrik motor.',
+                maintenance: [
+                    'Ganti busi setiap 10.000-15.000 km',
+                    'Periksa celah busi setiap 5.000 km',
+                    'Periksa tegangan aki setiap minggu (minimal 12,4V saat mesin mati)',
+                    'Bersihkan terminal baterai dari karat setiap bulan',
+                    'Test output alternator setiap 10.000 km (harus 13,5-14,5V saat mesin hidup)',
+                    'Periksa kondisi kabel dan konektor setiap 5.000 km'
+                ],
+                problems: [
+                    'Mesin Sulit Hidup: Dapat disebabkan oleh busi kotor/rusak, aki lemah, atau koil rusak',
+                    'Mesin Brebet/Tidak Stabil: Biasanya karena timing pengapian tidak tepat atau busi lemah',
+                    'Aki Cepat Habis: Sering disebabkan oleh regulator/rectifier rusak atau alternator mati',
+                    'Lampu Redup: Dapat terjadi karena tegangan pengisian rendah atau alternator lemah',
+                    'Motor Mati Mendadak: Biasanya karena CDI rusak total atau korsleting utama'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Sistem Pengapian',
+                        desc: 'Busi dan koil pengapian sebagai jantung sistem pembakaran'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Aki Motor',
+                        desc: 'Sumber daya listrik utama sepeda motor'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1568727997313-45fb4c12b8f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Wiring Harness',
+                        desc: 'Jaringan kabel kelistrikan motor yang menghubungkan semua komponen'
+                    }
+                ]
+            },
+            'rem': {
+                title: 'Sistem Rem & Suspensi',
+                subtitle: 'Sistem Pengendalian Kecepatan & Kenyamanan',
+                description: 'Sistem rem berfungsi untuk mengurangi kecepatan atau menghentikan kendaraan dengan mengubah energi kinetik menjadi panas melalui gesekan. Sistem suspensi menghubungkan rangka dengan roda untuk menyerap guncangan dan getaran dari permukaan jalan, memberikan kenyamanan, stabilitas, dan traksi optimal.',
+                icon: 'fas fa-car-crash',
+                components: [
+                    'Master Rem (Master Cylinder): Mengubah tekanan mekanis dari tuas rem menjadi tekanan hidrolik',
+                    'Kaliper Rem (Caliper): Menjepit brake pads ke disc rotor',
+                    'Kampas Rem (Brake Pads/Shoes): Komponen gesek yang kontak dengan rotor/drum',
+                    'Shock Absorber: Meredam osilasi pegas dengan resistansi fluida',
+                    'Pegas (Spring): Menyerap energi kejut dari permukaan jalan',
+                    'Fork (Suspensi Depan): Sistem suspensi terintegrasi dengan steering'
+                ],
+                working: 'Sistem rem bekerja dengan mengubah tekanan dari tuas rem menjadi tekanan hidrolik di master cylinder, yang kemudian menekan piston di kaliper untuk menjepit kampas rem ke disc rotor. Sistem suspensi bekerja dengan menyerap energi dari guncangan jalan melalui kompresi pegas, sementara shock absorber meredam osilasi pegas untuk kenyamanan berkendara.',
+                maintenance: [
+                    'Periksa ketebalan kampas rem setiap 1.000 km',
+                    'Ganti brake fluid setiap 20.000 km atau 2 tahun',
+                    'Periksa kebocoran fork/shock setiap 1.000 km',
+                    'Bersihkan caliper dan piston setiap 5.000 km',
+                    'Periksa preload dan sags suspensi setiap 5.000 km',
+                    'Ganti fork oil setiap 20.000 km'
+                ],
+                problems: [
+                    'Rem Blong: Dapat disebabkan oleh minyak rem habis, selang rem bocor, atau master rem rusak',
+                    'Rem Bunyi: Biasanya karena kampas rem sudah tipis, cakram tidak rata, atau ada kotoran',
+                    'Rem Lengket: Sering disebabkan oleh kaliper macet atau minyak rem kotor',
+                    'Suspensi Keras: Indikasi shockbreaker rusak atau pegas lemah',
+                    'Suspensi Bocor: Oli keluar dari seal fork atau shock'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Rem Cakram',
+                        desc: 'Sistem pengereman modern dengan disc rotor dan caliper'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Suspensi Motor',
+                        desc: 'Shockbreaker dan pegas untuk kenyamanan berkendara'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1601758064238-4af5f5d43b6d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Kampas Rem',
+                        desc: 'Komponen gesek sistem rem yang perlu diganti secara berkala'
+                    }
+                ]
+            },
+            'transmisi': {
+                title: 'Sistem Transmisi',
+                subtitle: 'Sistem Penyaluran Tenaga ke Roda',
+                description: 'Sistem transmisi bertugas menyalurkan tenaga dari mesin ke roda dengan pengaturan kecepatan dan torsi yang sesuai dengan kondisi berkendara. Sistem ini mengatur perbandingan gigi untuk optimasi performa.',
+                icon: 'fas fa-cogs',
+                components: [
+                    'Kopling: Menghubungkan dan memutuskan tenaga dari mesin ke transmisi',
+                    'Gearbox: Berisi rangkaian gigi transmisi',
+                    'Rantai/Shaft Drive: Menyalurkan tenaga dari transmisi ke roda',
+                    'Sprocket: Roda gigi penghubung rantai',
+                    'Gear Selector: Mekanisme pemindah gigi',
+                    'Oil Seal Transmisi: Mencegah kebocoran oli transmisi'
+                ],
+                working: 'Sistem transmisi bekerja dengan mengatur perbandingan gigi antara putaran mesin dan putaran roda. Kopling berfungsi memutus sambungan saat pemindahan gigi. Gearbox mengandung beberapa pasang gigi dengan rasio berbeda untuk berbagai kecepatan. Tenaga kemudian disalurkan melalui rantai atau shaft drive ke roda belakang.',
+                maintenance: [
+                    'Ganti oli transmisi setiap 4.000 - 6.000 km',
+                    'Periksa dan setel ketegangan rantai setiap 1.000 km',
+                    'Ganti rantai dan sprocket secara bersamaan saat sudah aus',
+                    'Periksa kondisi kopling dan kampas kopling',
+                    'Lumasi rantai dengan oli khusus setiap 500 km',
+                    'Periksa kebocoran pada seal transmisi'
+                ],
+                problems: [
+                    'Gigi Sulit Masuk: Dapat disebabkan oleh kopling tidak bebas, minyak transmisi kental, atau selector rusak',
+                    'Transmisi Bunyi: Biasanya karena gigi transmisi aus, bearing rusak, atau rantai longgar',
+                    'Tenaga Tidak Sampai: Sering disebabkan oleh kopling selip atau rantai putus',
+                    'Rantai Sering Longgar: Indikasi sprocket aus atau tensioner rusak',
+                    'Kopling Selip: Biasanya karena kampas kopling aus atau pegas kopling lemah'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1566054647296-c6e1559079b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Gearbox Motor',
+                        desc: 'Rangkaian gigi transmisi'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Rantai Motor',
+                        desc: 'Penyalur tenaga ke roda belakang'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1621996659490-3275c05a65e1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Kopling Motor',
+                        desc: 'Pengatur hubungan mesin-transmisi'
+                    }
+                ]
+            },
+            'starter': {
+                title: 'Sistem Starter & Pengisian',
+                subtitle: 'Sistem Penggerak Awal & Penyedia Listrik',
+                description: 'Sistem starter berfungsi memberikan putaran awal pada mesin agar dapat memulai siklus kerjanya, mengubah energi listrik dari baterai menjadi energi mekanik. Sistem pengisian menghasilkan listrik selama mesin bekerja untuk mengisi baterai dan menyuplai kebutuhan listrik seluruh komponen kendaraan.',
+                icon: 'fas fa-car-battery',
+                components: [
+                    'Baterai (Aki): Sumber energi listrik untuk menghidupkan motor starter',
+                    'Motor Starter: Mengubah energi listrik menjadi energi mekanik untuk memutar poros engkol',
+                    'Alternator: Menghasilkan arus listrik AC saat mesin berputar',
+                    'Regulator/Rectifier: Mengubah AC ke DC dan menstabilkan tegangan',
+                    'Solenoid: Menghubungkan arus besar dari baterai ke motor starter',
+                    'Relay Starter: Mengalirkan arus kecil untuk mengaktifkan solenoid'
+                ],
+                working: 'Saat tombol starter ditekan, arus kecil mengalir ke relay starter, yang kemudian mengaktifkan solenoid. Solenoid menghubungkan arus besar dari baterai ke motor starter sambil mendorong gigi pinion agar menyatu dengan flywheel. Motor starter berputar dan memutar poros engkol mesin hingga mesin hidup. Saat mesin hidup, alternator mulai menghasilkan listrik yang diubah menjadi DC oleh regulator/rectifier untuk mengisi baterai dan menyuplai kebutuhan listrik komponen lain.',
+                maintenance: [
+                    'Periksa tegangan baterai setiap minggu (minimal 12,4V saat mesin mati)',
+                    'Bersihkan terminal baterai dari karat setiap bulan',
+                    'Test output alternator setiap 10.000 km (harus 13,5-14,5V saat mesin hidup)',
+                    'Periksa kondisi kabel dan konektor setiap 5.000 km',
+                    'Service motor starter jika terdengar suara kasar saat start',
+                    'Ganti baterai setiap 2-3 tahun tergantung pemakaian'
+                ],
+                problems: [
+                    'Starter Tidak Berputar: Dapat disebabkan oleh baterai soak, sekring putus, atau relay rusak',
+                    'Starter Berputar Lemah: Biasanya karena baterai lemah, terminal korosi, atau motor starter rusak',
+                    'Aki Cepat Habis: Sering disebabkan oleh regulator rusak, alternator tidak charge, atau korsleting',
+                    'Tegangan Pengisian Tidak Stabil: Indikasi regulator rusak atau rectifier dioda bocor',
+                    'Starter Berputar Tapi Mesin Tidak Hidup: Dapat disebabkan oleh bendix/starter clutch rusak atau flywheel rusak'
+                ],
+                images: [
+                    {
+                        url: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Motor Starter',
+                        desc: 'Komponen pengubah energi listrik menjadi mekanik untuk start mesin'
+                    },
+                    {
+                        url: 'https://images.unsplash.com/photo-1568727997313-45fb4c12b8f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+                        title: 'Alternator/Stator',
+                        desc: 'Pembangkit listrik saat mesin hidup'
+                    },
+                    {
+                        url: 'https://via.placeholder.com/800x450?text=Starter+Relay+and+Solenoid',
+                        title: 'Relay dan Solenoid Starter',
+                        desc: 'Pengendali arus besar untuk motor starter'
+                    }
+                ]
+            }
+        };
+
+        // Event listener untuk card sistem
+        document.addEventListener('DOMContentLoaded', function() {
+            const systemCards = document.querySelectorAll('.system-card');
+            const detailSection = document.getElementById('detail-section');
+            
+            // Smooth scrolling untuk anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if(targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Fungsi untuk menampilkan detail sistem
+            function showSystemDetail(systemId) {
+                const systemData = systemsData[systemId];
+                
+                if (!systemData) {
+                    alert('Data sistem belum tersedia');
+                    return;
+                }
+                
+                // Update konten detail section
+                detailSection.innerHTML = `
+                    <div class="detail-header">
+                        <div class="detail-icon">
+                            <i class="${systemData.icon}"></i>
+                        </div>
+                        <div class="detail-title">
+                            <h2>${systemData.title}</h2>
+                            <p>${systemData.subtitle}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-content">
+                        <div class="detail-info">
+                            <div class="info-block">
+                                <h3>Deskripsi Sistem</h3>
+                                <p>${systemData.description}</p>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h3>Komponen Utama</h3>
+                                <ul>
+                                    ${systemData.components.map(comp => `<li>${comp}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h3>Cara Kerja</h3>
+                                <p>${systemData.working}</p>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h3>Perawatan Berkala</h3>
+                                <ul>
+                                    ${systemData.maintenance.map(maint => `<li>${maint}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div class="info-block">
+                                <h3>Masalah Umum & Solusi</h3>
+                                <ul>
+                                    ${systemData.problems.map(prob => `<li>${prob}</li>`).join('')}
+                                </ul>
+                            </div>
+                            
+                            <a href="#systems" class="back-btn" id="back-to-systems">
+                                <i class="fas fa-arrow-left"></i> Kembali ke Daftar Sistem
+                            </a>
+                        </div>
+                        
+                        <div class="detail-images">
+                            ${systemData.images.map(img => `
+                                <div class="image-card">
+                                    <img src="${img.url}" alt="${img.title}">
+                                    <div class="image-card-caption">
+                                        <h4>${img.title}</h4>
+                                        <p>${img.desc}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                // Tampilkan detail section dan scroll ke sana
+                detailSection.classList.add('active');
+                window.scrollTo({
+                    top: detailSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Tambahkan event listener untuk tombol kembali
+                document.getElementById('back-to-systems').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    detailSection.classList.remove('active');
+                    window.scrollTo({
+                        top: document.getElementById('systems').offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Tambahkan event listener untuk setiap card
+            systemCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const systemId = this.getAttribute('data-system');
+                    showSystemDetail(systemId);
+                });
+            });
+            
+            // Highlight menu aktif berdasarkan posisi scroll
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('nav a');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if(scrollY >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
